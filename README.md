@@ -9,6 +9,12 @@ is not yet covered by this backend will be exported as a html code.
 It hasn't been much tested as yet so any feedback, suggestions,
 requests are welcome.
 
+## Requirements 
+
+- Emacs 24
+
+- Org mode 8.0 
+
 ## Supported features
 
 As this is really a first rough version supported elements are limited
