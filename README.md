@@ -18,7 +18,7 @@ requests are welcome.
 ## Supported features
 
 As this is really a first rough version supported elements are limited
-to the basic ones,  used at least by me most of the time.
+to the basic ones,  used at least by me most of the time. See `test.org` for the features.
 
 ### Org elements
 

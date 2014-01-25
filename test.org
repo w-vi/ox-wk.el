@@ -1,0 +1,39 @@
+#+OPTIONS: toc:nil
+
+* HEADING 1
+
+** Heading 2
+- item 1
+- item 2
+- item 3
+
+** Heading 
+
+1. item 1
+   1. subitem
+   2. subitem
+   3. sub item 3
+2. item 2
+3. item 3
+
+*** Heading 3
+
+[[http://www/dokuwiki.org][Dokuwiki]]
+
+http://org-mode.org/
+
+**** Heading 4
+
+| col 1    | col 2     | col3 |
+|----------+-----------+------|
+| eabc     | 123       | a12b |
+| erjedffg | svsdfgsgv |      |
+
+
+=Inline verbatim mono spaced or what=
+
+#+BEGIN_SRC bash
+cd /path/to/directory
+rm -rf *
+#+END_SRC
+
