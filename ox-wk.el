@@ -21,7 +21,7 @@
 ;;; Commentary:
 
 ;; This library implements a Wiki back-end (dokuwiki and creole flavours) for
-;; Org exporter, based on `html' back-end. I have started based on Markdown 
+;; Org exporter, based on `html' back-end. I have started based on Markdown
 ;; backend and it deserves to be mentioned here for this reason.
 ;;
 ;; It provides two commands for export, depending on the desired
@@ -40,66 +40,64 @@
   :tag "Org Wiki"
   :group 'org-export
   :version "24.3"
-  :package-version '(Org . "8.0"))
+  :package-version '(Org . "8.3"))
 
 (defcustom org-wk-style 'doku
   "Style used to format different elements to different wiki markups.
 This variable can be set to either `doku' or `creole' at the moment."
   :group 'org-export-wk
   :type '(choice
-	  (const :tag "Use \"Dokuwiki\" style" doku)
-	  (const :tag "Use \"Wiki Creole\" style" creole)))
+          (const :tag "Use \"Dokuwiki\" style" doku)
+          (const :tag "Use \"Wiki Creole\" style" creole)))
 
 (defcustom org-wk-org-verbatim 'monospace
   "Style used to format = and ~ markups in org file. I haven't figured out yet how to distinguish these but prefer to use monospace.
 This variable can be set to either `monospace' or `verbatim'."
   :group 'org-export-wk
   :type '(choice
-	  (const :tag "Use \"Monospace\" markup" monospace)
-	  (const :tag "Use \"Verbatim\" markup" verbatim)))
+          (const :tag "Use \"Monospace\" markup" monospace)
+          (const :tag "Use \"Verbatim\" markup" verbatim)))
 
 ;;; Define Back-End
 
 (org-export-define-derived-backend 'wk 'html
-  :export-block '("WK" "WIKI")
-  ;;  :filters-alist '((:filter-parse-tree . org-wk-separate-elements))
   :menu-entry
   '(?w "Export to Wiki"
        ((?W "To temporary buffer"
-	    (lambda (a s v b) (org-wk-export-as-wiki a s v)))
-	(?w "To file" (lambda (a s v b) (org-wk-export-to-wiki a s v)))
-	(?o "To file and open"
-	    (lambda (a s v b)
-	      (if a (org-wk-export-to-wiki t s v)
-		(org-open-file (org-wk-export-to-wiki nil s v)))))))
+            (lambda (a s v b) (org-wk-export-as-wiki a s v)))
+        (?w "To file" (lambda (a s v b) (org-wk-export-to-wiki a s v)))
+        (?o "To file and open"
+            (lambda (a s v b)
+              (if a (org-wk-export-to-wiki t s v)
+                (org-open-file (org-wk-export-to-wiki nil s v)))))))
   :translate-alist '((bold . org-wk-bold)
-		     (code . org-wk-code)
-		     (src-block . org-wk-src-block)
-		     (comment . (lambda (&rest args) ""))
-		     (comment-block . (lambda (&rest args) ""))
-		     (example-block . org-wk-src-block)
-		     (fixed-width . org-wk-fixed-width)
-		     (footnote-definition . ignore)
-		     (footnote-reference . ignore)
-		     (headline . org-wk-headline)
-		     (horizontal-rule . org-wk-horizontal-rule)
-		     (inline-src-block . org-wk-code)
-		     (italic . org-wk-italic)
-		     (underline . org-wk-underline)
-		     (item . org-wk-item)
-		     (line-break . org-wk-line-break)
-		     (link . org-wk-link)
-		     (table . org-wk-table)
-		     (table-cell . org-wk-table-cell)
-		     (table-row . org-wk-table-row)
-		     (paragraph . org-wk-paragraph)
-		     (plain-list . org-wk-plain-list)
-		     (plain-text . org-wk-plain-text)
-		     (quote-block . org-wk-quote-block)
-		     (section . org-wk-section)
-		     (template . org-wk-template)
-		     (verbatim . org-wk-verbatim)
-		     ))
+                     (code . org-wk-code)
+                     (src-block . org-wk-src-block)
+                     (comment . (lambda (&rest args) ""))
+                     (comment-block . (lambda (&rest args) ""))
+                     (example-block . org-wk-src-block)
+                     (fixed-width . org-wk-fixed-width)
+                     (footnote-definition . ignore)
+                     (footnote-reference . ignore)
+                     (headline . org-wk-headline)
+                     (horizontal-rule . org-wk-horizontal-rule)
+                     (inline-src-block . org-wk-code)
+                     (italic . org-wk-italic)
+                     (underline . org-wk-underline)
+                     (item . org-wk-item)
+                     (line-break . org-wk-line-break)
+                     (link . org-wk-link)
+                     (table . org-wk-table)
+                     (table-cell . org-wk-table-cell)
+                     (table-row . org-wk-table-row)
+                     (paragraph . org-wk-paragraph)
+                     (plain-list . org-wk-plain-list)
+                     (plain-text . org-wk-plain-text)
+                     (quote-block . org-wk-quote-block)
+                     (section . org-wk-section)
+                     (template . org-wk-template)
+                     (verbatim . org-wk-verbatim)
+                     ))
 
 ;;; Filters
 
@@ -108,7 +106,7 @@ This variable can be set to either `monospace' or `verbatim'."
 ;;; Creole Functions
 
 (defun org-wk--creole-nowiki (object contents info &optional newline)
-  "Creole has a limited set of markup very often we 
+  "Creole has a limited set of markup very often we
 leave it as it is and go to preformatted nowiki style. OBJECT is not used atm,
 it just formats the CONTENTS. NEWLINE indicates if the markup
 should be on separate lines."
@@ -148,7 +146,7 @@ channel."
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
   (let ((value (org-element-property :value code))
-	(lang (org-element-property :language code)))
+        (lang (org-element-property :language code)))
     (cond
      ((eq org-wk-style 'creole) (org-wk--creole-nowiki code value info))
      (t (concat "<code" (if lang (format " %s > " lang) "> ") (format "%s </code>" value))))))
@@ -183,38 +181,38 @@ CONTENTS is the headline contents.  INFO is a plist used as
 a communication channel."
   (unless (org-element-property :footnote-section-p headline)
     (let* ((level (org-export-get-relative-level headline info))
-	   (title (org-export-data (org-element-property :title headline) info))
-	   (todo (and (plist-get info :with-todo-keywords)
-		      (let ((todo (org-element-property :todo-keyword
-							headline)))
-			(and todo (concat (org-export-data todo info) " ")))))
-	   (tags (and (plist-get info :with-tags)
-		      (let ((tag-list (org-export-get-tags headline info)))
-			(and tag-list
-			     (format "     :%s:"
-				     (mapconcat 'identity tag-list ":"))))))
-	   (priority
-	    (and (plist-get info :with-priority)
-		 (let ((char (org-element-property :priority headline)))
-		   (and char (format "[#%c] " char)))))
-	   ;; Headline text without tags.
-	   (heading (concat todo priority title)))
+           (title (org-export-data (org-element-property :title headline) info))
+           (todo (and (plist-get info :with-todo-keywords)
+                      (let ((todo (org-element-property :todo-keyword
+                                                        headline)))
+                        (and todo (concat (org-export-data todo info) " ")))))
+           (tags (and (plist-get info :with-tags)
+                      (let ((tag-list (org-export-get-tags headline info)))
+                        (and tag-list
+                             (format "     :%s:"
+                                     (mapconcat 'identity tag-list ":"))))))
+           (priority
+            (and (plist-get info :with-priority)
+                 (let ((char (org-element-property :priority headline)))
+                   (and char (format "[#%c] " char)))))
+           ;; Headline text without tags.
+           (heading (concat todo priority title)))
       (cond
        ;; Cannot create a headline.  Fall-back to a list.
-       ((or (and (org-export-low-level-p headline info) 
-		 (> (org-export-low-level-p headline info) 3))
-	    (and (eq org-wk-style 'doku) (> level 5))
-	    (and (eq org-wk-style 'creole) (> level 6)))
-	(let ((bullet
-	       (if (not (org-export-numbered-headline-p headline info)) "*" "-" )
-	       (concat "  " bullet heading tags
-		       "\n\n"
-		       (and contents
-			    (replace-regexp-in-string "^" "    " contents)))))))
-       ((eq org-wk-style 'creole)	
-	(concat (make-string level ?=) " " heading tags "\n\n" contents))
+       ((or (and (org-export-low-level-p headline info)
+                 (> (org-export-low-level-p headline info) 3))
+            (and (eq org-wk-style 'doku) (> level 5))
+            (and (eq org-wk-style 'creole) (> level 6)))
+        (let ((bullet
+               (if (not (org-export-numbered-headline-p headline info)) "*" "-" )
+               (concat "  " bullet heading tags
+                       "\n\n"
+                       (and contents
+                            (replace-regexp-in-string "^" "    " contents)))))))
+       ((eq org-wk-style 'creole)
+        (concat (make-string level ?=) " " heading tags "\n\n" contents))
        (t (let ((markup (make-string (- 7 level) ?=)))
-	    (concat markup " " heading tags " " markup "\n\n" contents)))))))
+            (concat markup " " heading tags " " markup "\n\n" contents)))))))
 
 ;;;; Horizontal Rule
 
@@ -239,26 +237,26 @@ as a communication channel."
 CONTENTS is the item contents.  INFO is a plist used as
 a communication channel."
   (let* ((plain-list (org-export-get-parent item))
-	 (type (org-element-property :type plain-list))
-	 (bullet (if (eq org-wk-style 'creole) 
-		     (if (eq type 'ordered) "#" "*" ) 
-		   (if (eq type 'ordered) "-" "*" )))
-	 (counter (org-element-property :counter item))
-	 (checkbox (org-element-property :checkbox item))
-	 (tag (let ((tag (org-element-property :tag item)))
-		(and tag (org-export-data tag info))))
-	 (level
-	  ;; Determine level of current item to determine the
-	  ;; correct indentation or number of bullets to use.
-	  (let ((parent item) (level 0))
-	    (while (memq (org-element-type
-			  (setq parent (org-export-get-parent parent)))
-			 '(plain-list item))
-	      (when (eq (org-element-type parent) 'plain-list)
-		(incf level)))
-	    level))
-	 (prefix (if (eq org-wk-style 'creole) (if (eq type 'ordered)?# ?*) ? )))
-    (concat 
+         (type (org-element-property :type plain-list))
+         (bullet (if (eq org-wk-style 'creole)
+                     (if (eq type 'ordered) "#" "*" )
+                   (if (eq type 'ordered) "-" "*" )))
+         (counter (org-element-property :counter item))
+         (checkbox (org-element-property :checkbox item))
+         (tag (let ((tag (org-element-property :tag item)))
+                (and tag (org-export-data tag info))))
+         (level
+          ;; Determine level of current item to determine the
+          ;; correct indentation or number of bullets to use.
+          (let ((parent item) (level 0))
+            (while (memq (org-element-type
+                          (setq parent (org-export-get-parent parent)))
+                         '(plain-list item))
+              (when (eq (org-element-type parent) 'plain-list)
+                (incf level)))
+            level))
+         (prefix (if (eq org-wk-style 'creole) (if (eq type 'ordered)?# ?*) ? )))
+    (concat
      (if (eq org-wk-style 'doku) (make-string (* 2 level) prefix )
        (make-string (1- level) prefix))
      bullet " "
@@ -285,74 +283,74 @@ channel."
 CONTENTS is the description part of the link, or the empty string.
 INFO is a plist holding contextual information.  See `org-export-data'."
   (let ((--link-org-files-as-html-maybe
-	 (function
-	  (lambda (raw-path info)
-	    ;; Treat links to `file.org' as links to `file.html', if
+         (function
+          (lambda (raw-path info)
+            ;; Treat links to `file.org' as links to `file.html', if
             ;; needed.  See `org-html-link-org-files-as-html'.
-	    (cond
-	     ((and org-html-link-org-files-as-html
-		   (string= ".org"
-			    (downcase (file-name-extension raw-path "."))))
-	      (concat (file-name-sans-extension raw-path) "."
-		      (plist-get info :html-extension)))
-	     (t raw-path)))))
-	(type (org-element-property :type link)))
+            (cond
+             ((and org-html-link-org-files-as-html
+                   (string= ".org"
+                            (downcase (file-name-extension raw-path "."))))
+              (concat (file-name-sans-extension raw-path) "."
+                      (plist-get info :html-extension)))
+             (t raw-path)))))
+        (type (org-element-property :type link)))
     (cond ((member type '("custom-id" "id"))
-	   (let ((destination (org-export-resolve-id-link link info)))
-	     (if (stringp destination)	; External file.
-		 (let ((path (funcall --link-org-files-as-html-maybe
-				      destination info)))
-		   (if (not contents) (format "<%s>" path)
-		     (format "[[%s|%s]]" path contents)))
-	       (concat
-		(and contents (concat contents " "))
-		(format "#%s"
-			(format (org-export-translate "See section %s" :html info)
-				(mapconcat 'number-to-string
-					   (org-export-get-headline-number
-					    destination info)
-					   ".")))))))
-	  ((org-export-inline-image-p link org-html-inline-image-rules)
-	   (let ((path (let ((raw-path (org-element-property :path link)))
-			 (if (not (file-name-absolute-p raw-path)) raw-path
-			   (expand-file-name raw-path)))))
-	     (format "{{%s|%s}}" path
-		     (let ((caption (org-export-get-caption
-				     (org-export-get-parent-element link))))
-		       (if caption (org-export-data caption info) path))
-		     )))
-	  ((string= type "coderef")
-	   (let ((ref (org-element-property :path link)))
-	     (format (org-export-get-coderef-format ref contents)
-		     (org-export-resolve-coderef ref info))))
-	  ((equal type "radio")
-	   (let ((destination (org-export-resolve-radio-link link info)))
-	     (org-export-data (org-element-contents destination) info)))
-	  ((equal type "fuzzy")
-	   (let ((destination (org-export-resolve-fuzzy-link link info)))
-	     (if (org-string-nw-p contents) contents
-	       (when destination
-		 (let ((number (org-export-get-ordinal destination info)))
-		   (when number
-		     (if (atom number) (number-to-string number)
-		       (mapconcat 'number-to-string number "."))))))))
-	  (t (let* ((raw-path (org-element-property :path link))
-		    (path (cond
-			   ((member type '("http" "https" "ftp"))
-			    (concat type ":" raw-path))
-			   ((equal type "file")
-			    ;; Treat links to ".org" files as ".html",
-			    ;; if needed.
-			    (setq raw-path
-				  (funcall --link-org-files-as-html-maybe
-					   raw-path info))
-			    ;; If file path is absolute, prepend it
-			    ;; with protocol component - "file://".
-			    (if (not (file-name-absolute-p raw-path)) raw-path
-			      (concat "file://" (expand-file-name raw-path))))
-			   (t raw-path)))) 
-	       (if (not contents) (format "%s" path)
-		 (format "[[%s|%s]]" path contents)))))))
+           (let ((destination (org-export-resolve-id-link link info)))
+             (if (stringp destination)  ; External file.
+                 (let ((path (funcall --link-org-files-as-html-maybe
+                                      destination info)))
+                   (if (not contents) (format "<%s>" path)
+                     (format "[[%s|%s]]" path contents)))
+               (concat
+                (and contents (concat contents " "))
+                (format "#%s"
+                        (format (org-export-translate "See section %s" :html info)
+                                (mapconcat 'number-to-string
+                                           (org-export-get-headline-number
+                                            destination info)
+                                           ".")))))))
+          ((org-export-inline-image-p link org-html-inline-image-rules)
+           (let ((path (let ((raw-path (org-element-property :path link)))
+                         (if (not (file-name-absolute-p raw-path)) raw-path
+                           (expand-file-name raw-path)))))
+             (format "{{%s|%s}}" path
+                     (let ((caption (org-export-get-caption
+                                     (org-export-get-parent-element link))))
+                       (if caption (org-export-data caption info) path))
+                     )))
+          ((string= type "coderef")
+           (let ((ref (org-element-property :path link)))
+             (format (org-export-get-coderef-format ref contents)
+                     (org-export-resolve-coderef ref info))))
+          ((equal type "radio")
+           (let ((destination (org-export-resolve-radio-link link info)))
+             (org-export-data (org-element-contents destination) info)))
+          ((equal type "fuzzy")
+           (let ((destination (org-export-resolve-fuzzy-link link info)))
+             (if (org-string-nw-p contents) contents
+               (when destination
+                 (let ((number (org-export-get-ordinal destination info)))
+                   (when number
+                     (if (atom number) (number-to-string number)
+                       (mapconcat 'number-to-string number "."))))))))
+          (t (let* ((raw-path (org-element-property :path link))
+                    (path (cond
+                           ((member type '("http" "https" "ftp"))
+                            (concat type ":" raw-path))
+                           ((equal type "file")
+                            ;; Treat links to ".org" files as ".html",
+                            ;; if needed.
+                            (setq raw-path
+                                  (funcall --link-org-files-as-html-maybe
+                                           raw-path info))
+                            ;; If file path is absolute, prepend it
+                            ;; with protocol component - "file://".
+                            (if (not (file-name-absolute-p raw-path)) raw-path
+                              (concat "file://" (expand-file-name raw-path))))
+                           (t raw-path))))
+               (if (not contents) (format "%s" path)
+                 (format "[[%s|%s]]" path contents)))))))
 
 ;;;; Paragraph
 
@@ -363,7 +361,7 @@ a communication channel."
   (let ((first-object (car (org-element-contents paragraph))))
     ;; If paragraph starts with a #, protect it.
     (if (and (stringp first-object) (string-match "\\`#" first-object))
-	(replace-regexp-in-string "\\`#" "\\#" contents nil t)
+        (replace-regexp-in-string "\\`#" "\\#" contents nil t)
       contents)))
 
 ;;;; Plain List
@@ -437,29 +435,29 @@ as a communication channel."
   "Transcode TABLE-ROW element.
 CONTENTS is the row contents.  INFO is a plist used
 as a communication channel."
-  (cond 
-   ((eq org-wk-style 'creole) 
+  (cond
+   ((eq org-wk-style 'creole)
     (concat
      (if (org-string-nw-p contents) (format "|%s" contents) "")))
    (t (concat
        (if (org-string-nw-p contents) (format "%s" contents)
-	 "")
+         "")
        (when (org-export-table-row-ends-header-p table-row info)
-	 "^")))))
+         "^")))))
 
 (defun org-wk-table-cell  (table-cell contents info)
   "Transcode TABLE-CELL element.
 CONTENTS is the table-cell contents.  INFO is a plist used
-as a communication channel. Treat Header cells differently. 
+as a communication channel. Treat Header cells differently.
 FIXME : support also row header cells, now headers are in columns only"
   (let ((table-row (org-export-get-parent table-cell)))
     (cond
      ((org-export-table-row-starts-header-p table-row info)
-      (if (eq org-wk-style 'doku)(concat "^ " contents) 
-	(format "=%s|" contents))) 
+      (if (eq org-wk-style 'doku)(concat "^ " contents)
+        (format "=%s|" contents)))
      ((org-export-table-cell-starts-colgroup-p table-cell info)
-      (if (eq org-wk-style 'doku) (concat "|" contents "|") 
-	(format "%s|" contents)))
+      (if (eq org-wk-style 'doku) (concat "|" contents "|")
+        (format "%s|" contents)))
      (t (concat contents "|")))))
 
 ;;; Interactive function
@@ -491,19 +489,19 @@ non-nil."
   (interactive)
   (if async
       (org-export-async-start
-	  (lambda (output)
-	    (with-current-buffer (get-buffer-create "*Org Wiki Export*")
-	      (erase-buffer)
-	      (insert output)
-	      (goto-char (point-min))
-	      (text-mode)
-	      (org-export-add-to-stack (current-buffer) 'wk)))
-	`(org-export-as 'wk ,subtreep ,visible-only))
+          (lambda (output)
+            (with-current-buffer (get-buffer-create "*Org Wiki Export*")
+              (erase-buffer)
+              (insert output)
+              (goto-char (point-min))
+              (text-mode)
+              (org-export-add-to-stack (current-buffer) 'wk)))
+        `(org-export-as 'wk ,subtreep ,visible-only))
     (let ((outbuf (org-export-to-buffer
-		      'wk "*Org Wiki Export*" subtreep visible-only)))
+                      'wk "*Org Wiki Export*" subtreep visible-only)))
       (with-current-buffer outbuf (text-mode))
       (when org-export-show-temporary-export-buffer
-	(switch-to-buffer-other-window outbuf)))))
+        (switch-to-buffer-other-window outbuf)))))
 
 ;;;###autoload
 (defun org-wk-convert-region-to-wk ()
@@ -538,10 +536,10 @@ Return output file's name."
   (interactive)
   (let ((outfile (org-export-output-file-name ".txt" subtreep)))
     (if async
-	(org-export-async-start
-	    (lambda (f) (org-export-add-to-stack f 'wk))
-	  `(expand-file-name
-	    (org-export-to-file 'wk ,outfile ,subtreep ,visible-only)))
+        (org-export-async-start
+            (lambda (f) (org-export-add-to-stack f 'wk))
+          `(expand-file-name
+            (org-export-to-file 'wk ,outfile ,subtreep ,visible-only)))
       (org-export-to-file 'wk outfile subtreep visible-only))))
 
 (provide 'ox-wk)
