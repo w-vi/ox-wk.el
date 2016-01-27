@@ -13,7 +13,7 @@ requests are welcome.
 
 - Emacs 24
 
-- Org mode 8.0 
+- Org mode 8.3 
 
 ## Supported features
 
