@@ -137,7 +137,7 @@ channel."
   (let ((value (org-element-property :value fixed-width)))
     (cond
      ((eq org-wk-style 'creole) (org-wk--creole-nowiki fixed-width value info))
-     (t (format "'' %s ''" value)))))
+     (t (format "''%s''" value)))))
 
 ;;;; Code and Verbatim
 
@@ -149,7 +149,7 @@ channel."
         (lang (org-element-property :language code)))
     (cond
      ((eq org-wk-style 'creole) (org-wk--creole-nowiki code value info))
-     (t (concat "<code" (if lang (format " %s > " lang) "> ") (format "%s </code>" value))))))
+     (t (concat "<code" (if lang (format " %s> " lang) "> ") (format "%s</code>" value))))))
 
 (defun org-wk-verbatim (verbatim contents info)
   "Transcode VERBATIM object.
@@ -171,7 +171,7 @@ channel."
         (content (org-export-format-code-default src-block info)))
     (cond
      ((eq org-wk-style 'creole) (org-wk--creole-nowiki src-block content info t))
-     (t (concat "<code" (if lang (format " %s>\n" lang) ">\n") (format "%s </code>" content))))))
+     (t (concat "<code" (if lang (format " %s>\n" lang) ">\n") (format "%s</code>" content))))))
 
 ;;;; Headline
 
