@@ -1,5 +1,7 @@
 # ox-wk.el
 
+[![Build Status](https://travis-ci.org/w-vi/ox-wk.el.svg?branch=master)](https://travis-ci.org/w-vi/ox-wk.el)
+
 Emacs org-mode publishing backend for exporting org files to Dokuwiki
 and Creole wiki formats.
 
@@ -9,16 +11,17 @@ is not yet covered by this backend will be exported as a html code.
 It hasn't been much tested as yet so any feedback, suggestions,
 requests are welcome.
 
-## Requirements 
+## Requirements
 
 - Emacs 24
 
-- Org mode 8.3 
+- Org mode 8.3
+
 
 ## Supported features
 
 As this is really a first rough version supported elements are limited
-to the basic ones,  used at least by me most of the time. See `test.org` for the features.
+to the basic ones,  used at least by me most of the time. See `test/test.org` for the features.
 
 ### Org elements
 
@@ -57,8 +60,15 @@ Set Dokuwiki preference for  org = and ~ markup. It can be exported
 either as verbatim or as fixed width block. I haven't figured out yet how
 to distinguish these 2 so it is optional. Set it to 'monospace or 'verbatim.
 
-    (setq org-wk-dokuwiki-verbatim 'monospace) ;; use monospace markup 
+    (setq org-wk-dokuwiki-verbatim 'monospace) ;; use monospace markup
     (setq org-wk-dokuwiki-verbatim 'verbatim) ;; use nowiki markup
+
+
+## Development
+
+It's just one file but to make sure everything works there is a simple CI test
+in place using travis-ci.org see Makefile for more details.
+
 
 ## Acknowledgments
 

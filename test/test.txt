@@ -1,0 +1,43 @@
+
+====== HEADING 1 ======
+
+===== Heading 2 =====
+
+  * item 1
+  * item 2
+  * item 3
+
+===== Heading =====
+
+  - item 1
+    - subitem
+    - subitem
+    - sub item 3
+  - item 2
+  - item 3
+
+==== Heading 3 ====
+
+[[http://www/dokuwiki.org|Dokuwiki]]
+
+http://org-mode.org/
+
+=== Heading 4 ===
+
+^ col 1^ col 2^ col3^
+|eabc|123|a12b|
+|erjedffg|svsdfgsgv||
+
+
+''Inline verbatim mono spaced or what''
+
+<code bash>
+cd /path/to/directory
+rm -rf *
+</code>
+
+
+==== Missing list item (issue #3) ====
+
+  * item 1
+  *

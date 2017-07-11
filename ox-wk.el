@@ -204,11 +204,9 @@ a communication channel."
             (and (eq org-wk-style 'doku) (> level 5))
             (and (eq org-wk-style 'creole) (> level 6)))
         (let ((bullet
-               (if (not (org-export-numbered-headline-p headline info)) "*" "-" )
-               (concat "  " bullet heading tags
-                       "\n\n"
-                       (and contents
-                            (replace-regexp-in-string "^" "    " contents)))))))
+               (if (not (org-export-numbered-headline-p headline info)) "*" "-" )))
+          (concat "  " bullet heading tags "\n\n"
+                  (and contents (replace-regexp-in-string "^" "    " contents)))))
        ((eq org-wk-style 'creole)
         (concat (make-string level ?=) " " heading tags "\n\n" contents))
        (t (let ((markup (make-string (- 7 level) ?=)))
@@ -265,7 +263,7 @@ a communication channel."
        (trans "[-] ")
        (off "[ ] "))
      (and tag (format "**%s:** "(org-export-data tag info)))
-     (org-trim contents))))
+     (and contents (org-trim contents)))))
 
 ;;;; Line Break
 
