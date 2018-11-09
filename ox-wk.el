@@ -1,4 +1,4 @@
-;;; ox-wk.el --- Wiki Back-End for Org Export Engine
+;;; ox-wk.el --- Wiki Back-End for Org Export Engine  -*- lexical-binding: t; -*-
 
 
 ;; Copyright (C) 2013-2018 Vilibald Wanča <vilibald@wvi.cz>
@@ -113,7 +113,7 @@ This variable can be set to either `monospace' or `verbatim'."
 
 ;;; Creole Functions
 
-(defun ox-wk--creole-nowiki (object contents info &optional newline)
+(defun ox-wk--creole-nowiki (_object contents _info &optional newline)
   "Creole has a limited set of markup so we go to preformatted nowiki style.
 Very often we leave it as it is and go to preformatted nowiki
 style.  OBJECT is not used atm, it just formats the
@@ -123,7 +123,7 @@ lines.  INFO is a plist used as a communication channel."
 
 ;;;; Bold
 
-(defun ox-wk-bold (bold contents info)
+(defun ox-wk-bold (_bold contents _info)
   "Transcode BOLD object.
 CONTENTS is the text within bold markup.  INFO is a plist used as
 a communication channel."
@@ -131,7 +131,7 @@ a communication channel."
 
 ;;;; Underline
 
-(defun ox-wk-underline (underline contents info)
+(defun ox-wk-underline (_underline contents _info)
   "Transcode UNDERLINE object.
 CONTENTS is the text within underline markup.  INFO is a plist used as
 a communication channel."
@@ -139,7 +139,7 @@ a communication channel."
 
 ;;;; Fixed width
 
-(defun ox-wk-fixed-width (fixed-width contents info)
+(defun ox-wk-fixed-width (fixed-width _contents info)
   "Transcode FIXED-WIDTH element.
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
@@ -150,7 +150,7 @@ channel."
 
 ;;;; Code and Verbatim
 
-(defun ox-wk-code (code contents info)
+(defun ox-wk-code (code _contents info)
   "Transcode CODE object.
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
@@ -172,7 +172,7 @@ channel."
 
 ;;;; Src-Block
 
-(defun ox-wk-src-block (src-block contents info)
+(defun ox-wk-src-block (src-block _contents info)
   "Transcode SRC-BLOCK element.
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
@@ -223,7 +223,7 @@ a communication channel."
 
 ;;;; Horizontal Rule
 
-(defun ox-wk-horizontal-rule (horizontal-rule contents info)
+(defun ox-wk-horizontal-rule (_horizontal-rule _contents _info)
   "Transcode HORIZONTAL-RULE element.
 CONTENTS is the horizontal rule contents, none is actually used.
 INFO is a plist used as a communication channel."
@@ -231,7 +231,7 @@ INFO is a plist used as a communication channel."
 
 ;;;; Italic
 
-(defun ox-wk-italic (italic contents info)
+(defun ox-wk-italic (_italic contents _info)
   "Transcode ITALIC object.
 CONTENTS is the text within italic markup.  INFO is a plist used
 as a communication channel."
@@ -248,7 +248,7 @@ a communication channel."
          (bullet (if (eq ox-wk-style 'creole)
                      (if (eq type 'ordered) "#" "*" )
                    (if (eq type 'ordered) "-" "*" )))
-         (counter (org-element-property :counter item))
+         (_counter (org-element-property :counter item))
          (checkbox (org-element-property :checkbox item))
          (tag (let ((tag (org-element-property :tag item)))
                 (and tag (org-export-data tag info))))
@@ -276,7 +276,7 @@ a communication channel."
 
 ;;;; Line Break
 
-(defun ox-wk-line-break (line-break contents info)
+(defun ox-wk-line-break (_line-break _contents _info)
   "Transcode LINE-BREAK object.
 CONTENTS is nil.  INFO is a plist used as a communication
 channel."
@@ -361,7 +361,7 @@ INFO is a plist holding contextual information.  See `org-export-data'."
 
 ;;;; Paragraph
 
-(defun ox-wk-paragraph (paragraph contents info)
+(defun ox-wk-paragraph (paragraph contents _info)
   "Transcode PARAGRAPH element.
 CONTENTS is the paragraph contents.  INFO is a plist used as
 a communication channel."
@@ -373,7 +373,7 @@ a communication channel."
 
 ;;;; Plain List
 
-(defun ox-wk-plain-list (plain-list contents info)
+(defun ox-wk-plain-list (_plain-list contents _info)
   "Transcode PLAIN-LIST element.
 CONTENTS is the plain-list contents.  INFO is a plist used as
 a communication channel."
@@ -406,7 +406,7 @@ contextual information."
 
 ;;;; Quote Block
 
-(defun ox-wk-quote-block (quote-block contents info)
+(defun ox-wk-quote-block (_quote-block contents _info)
   "Transcode QUOTE-BLOCK element.
 CONTENTS is the quote-block contents.  INFO is a plist used as
 a communication channel."
@@ -416,7 +416,7 @@ a communication channel."
 
 ;;;; Section
 
-(defun ox-wk-section (section contents info)
+(defun ox-wk-section (_section contents _info)
   "Transcode SECTION element.
 CONTENTS is the section contents.  INFO is a plist used as
 a communication channel."
@@ -424,7 +424,7 @@ a communication channel."
 
 ;;;; Template
 
-(defun ox-wk-template (contents info)
+(defun ox-wk-template (contents _info)
   "Return complete document string after conversion.
 CONTENTS is the transcoded contents string.  INFO is a plist used
 as a communication channel."
@@ -432,7 +432,7 @@ as a communication channel."
 
 ;;;; Table
 
-(defun ox-wk-table (table contents info)
+(defun ox-wk-table (_table contents _info)
   "Transcode TABLE element.
 CONTENTS is the table contents.  INFO is a plist used
 as a communication channel."
