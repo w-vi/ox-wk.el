@@ -1,15 +1,13 @@
 # ox-wk.el
 
 [![Build Status](https://travis-ci.org/w-vi/ox-wk.el.svg?branch=master)](https://travis-ci.org/w-vi/ox-wk.el)
+[![MELPA](https://melpa.org/packages/ox-wk-badge.svg)](https://melpa.org/#/ox-wk)
 
 Emacs org-mode publishing backend for exporting org files to Dokuwiki
 and Creole wiki formats.
 
 It is a derived backend and uses ox-html as a base so anything which
 is not yet covered by this backend will be exported as a html code.
-
-It hasn't been much tested as yet so any feedback, suggestions,
-requests are welcome.
 
 ## Requirements
 
@@ -20,8 +18,8 @@ requests are welcome.
 
 ## Supported features
 
-As this is really a first rough version supported elements are limited
-to the basic ones,  used at least by me most of the time. See `test/test.org` for the features.
+Only limited number of elements are supported,the basic ones,  
+used at least by me most of the time. See `test/test.org` for the features.
 
 ### Org elements
 
@@ -43,7 +41,11 @@ to the basic ones,  used at least by me most of the time. See `test/test.org` fo
 
 ## Installation
 
-Copy the file to wherever your Emacs lisp code resides, typically  ~/.emacs.d/site-lisp/
+`ox-wk.el` is available on [[https://melpa.org/][Melpa]]:
+
+`M-x package-install ox-wk`
+
+or copy the file to wherever your Emacs lisp code resides, typically  ~/.emacs.d/site-lisp/
 and add this to your .emacs file possibly close to your org-mode settings.
 
     (require 'ox-wk)
