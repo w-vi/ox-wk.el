@@ -41,9 +41,9 @@ used at least by me most of the time. See `test/test.org` for the features.
 
 ## Installation
 
-~ox-wk.el~ is available on [[https://melpa.org/][Melpa]]:
+`ox-wk.el` is available on [[https://melpa.org/][Melpa]]:
 
-~M-x package-install ox-wk~
+`M-x package-install ox-wk`
 
 or copy the file to wherever your Emacs lisp code resides, typically  ~/.emacs.d/site-lisp/
 and add this to your .emacs file possibly close to your org-mode settings.
