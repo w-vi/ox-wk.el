@@ -18,8 +18,14 @@ is not yet covered by this backend will be exported as a html code.
 
 ## Supported features
 
-Only limited number of elements are supported,the basic ones,  
+Only limited number of elements are supported,the basic ones,
 used at least by me most of the time. See `test/test.org` for the features.
+
+This package provides two commands for export, depending on the desired output:
+
+* `ox-wk-export-as-wiki` on a temporary buffer
+
+* `ox-wk-export-to-wiki` to a ".txt" file.
 
 ### Org elements
 
@@ -41,7 +47,7 @@ used at least by me most of the time. See `test/test.org` for the features.
 
 ## Installation
 
-`ox-wk.el` is available on [[https://melpa.org/][Melpa]]:
+`ox-wk.el` is available on [Melpa](https://melpa.org):
 
 `M-x package-install ox-wk`
 
@@ -55,15 +61,15 @@ and add this to your .emacs file possibly close to your org-mode settings.
 Set wiki syntax style, default is Dokuwiki so to set it to Creole add
 the line below to you .Emacs file.
 
-    (setq org-wk-style 'creole)
+    (setq ox-wk-style 'creole)
 
 
 Set Dokuwiki preference for  org = and ~ markup. It can be exported
 either as verbatim or as fixed width block. I haven't figured out yet how
 to distinguish these 2 so it is optional. Set it to 'monospace or 'verbatim.
 
-    (setq org-wk-dokuwiki-verbatim 'monospace) ;; use monospace markup
-    (setq org-wk-dokuwiki-verbatim 'verbatim) ;; use nowiki markup
+    (setq ox-wk-org-verbatim 'monospace) ;; use monospace markup
+    (setq ox-wk-org-verbatim 'verbatim) ;; use nowiki markup
 
 
 ## Development
