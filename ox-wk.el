@@ -37,7 +37,7 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl-lib))
 (require 'ox-html)
 
 ;;; User-Configurable Variables
@@ -260,17 +260,17 @@ a communication channel."
                           (setq parent (org-export-get-parent parent)))
                          '(plain-list item))
               (when (eq (org-element-type parent) 'plain-list)
-                (incf level)))
+                (cl-incf level)))
             level))
          (prefix (if (eq ox-wk-style 'creole) (if (eq type 'ordered)?# ?*) ? )))
     (concat
      (if (eq ox-wk-style 'doku) (make-string (* 2 level) prefix )
        (make-string (1- level) prefix))
      bullet " "
-     (case checkbox
-       (on "[X] ")
-       (trans "[-] ")
-       (off "[ ] "))
+     (cl-case checkbox
+       (cl-on "[X] ")
+       (cl-trans "[-] ")
+       (cl-off "[ ] "))
      (and tag (format "**%s:** "(org-export-data tag info)))
      (and contents (org-trim contents)))))
 
