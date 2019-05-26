@@ -71,9 +71,8 @@ This variable can be set to either `monospace' or `verbatim'."
 (org-export-define-derived-backend 'wk 'html
   :menu-entry
   '(?w "Export to Wiki"
-       ((?W "To temporary buffer"
-            (lambda (a s v b) (ox-wk-export-as-wiki a s v)))
-        (?w "To file" (lambda (a s v b) (ox-wk-export-to-wiki a s v)))
+       ((?W "To temporary buffer" ox-wk-export-as-wiki)
+        (?w "To file" ox-wk-export-to-wiki)
         (?o "To file and open"
             (lambda (a s v b)
               (if a (ox-wk-export-to-wiki t s v)
@@ -471,7 +470,8 @@ FIXME : support also row header cells, now headers are in columns only"
 
 ;;;###autoload
 
-(defun ox-wk-export-as-wiki (&optional async subtreep visible-only)
+(defun ox-wk-export-as-wiki
+    (&optional async subtreep visible-only body-only ext-plist)
   "Export current buffer to a Wiki buffer.
 
 If narrowing is active in the current buffer, only export its
@@ -490,25 +490,20 @@ first.
 When optional argument VISIBLE-ONLY is non-nil, don't export
 contents of hidden elements.
 
+When optional argument BODY-ONLY is non-nil, strip title, table
+of contents and footnote definitions from output.
+
+EXT-PLIST, when provided, is a property list with external
+parameters overriding Org default settings, but still inferior to
+file-local settings.
+
 Export is done in a buffer named \"*Org Wiki Export*\", which will
 be displayed when `org-export-show-temporary-export-buffer' is
 non-nil."
   (interactive)
-  (if async
-      (org-export-async-start
-          (lambda (output)
-            (with-current-buffer (get-buffer-create "*Org Wiki Export*")
-              (erase-buffer)
-              (insert output)
-              (goto-char (point-min))
-              (text-mode)
-              (org-export-add-to-stack (current-buffer) 'wk)))
-        `(org-export-as 'wk ,subtreep ,visible-only))
-    (let ((outbuf (org-export-to-buffer
-                      'wk "*Org Wiki Export*" subtreep visible-only)))
-      (with-current-buffer outbuf (text-mode))
-      (when org-export-show-temporary-export-buffer
-        (switch-to-buffer-other-window outbuf)))))
+  (org-export-to-buffer 'wk "*Org Wiki Export*"
+    async subtreep visible-only body-only ext-plist
+    (lambda () (set-auto-mode t))))
 
 ;;;###autoload
 (defun ox-wk-convert-region-to-wk ()
@@ -520,7 +515,8 @@ this command to convert it."
   (org-export-replace-region-by 'wk))
 
 ;;;###autoload
-(defun ox-wk-export-to-wiki (&optional async subtreep visible-only)
+(defun ox-wk-export-to-wiki
+    (&optional async subtreep visible-only body-only ext-plist)
   "Export current buffer to a Wiki sytntax text file.
 
 If narrowing is active in the current buffer, only export its
@@ -539,15 +535,19 @@ first.
 When optional argument VISIBLE-ONLY is non-nil, don't export
 contents of hidden elements.
 
+When optional argument BODY-ONLY is non-nil, strip title, table
+of contents and footnote definitions from output.
+
+EXT-PLIST, when provided, is a property list with external
+parameters overriding Org default settings, but still inferior to
+file-local settings.
+
 Return output file's name."
   (interactive)
-  (let ((outfile (org-export-output-file-name ".txt" subtreep)))
-    (if async
-        (org-export-async-start
-            (lambda (f) (org-export-add-to-stack f 'wk))
-          `(expand-file-name
-            (org-export-to-file 'wk ,outfile ,subtreep ,visible-only)))
-      (org-export-to-file 'wk outfile subtreep visible-only))))
+  (let ((outfile (org-export-output-file-name ".txt" subtreep))
+        (org-export-coding-system "utf-8"))
+    (org-export-to-file 'wk outfile
+      async subtreep visible-only body-only ext-plist)))
 
 (provide 'ox-wk)
 
