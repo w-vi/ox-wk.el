@@ -66,6 +66,12 @@ This variable can be set to either `monospace' or `verbatim'."
           (const :tag "Use \"Monospace\" markup" monospace)
           (const :tag "Use \"Verbatim\" markup" verbatim)))
 
+(defcustom ox-wk-coding-system 'utf-8
+  "Coding system for wiki export.
+Use utf-8 as the default value."
+  :group 'org-export-wk
+  :type 'coding-system)
+
 ;;; Define Back-End
 
 (org-export-define-derived-backend 'wk 'html
@@ -545,7 +551,7 @@ file-local settings.
 Return output file's name."
   (interactive)
   (let ((outfile (org-export-output-file-name ".txt" subtreep))
-        (org-export-coding-system "utf-8"))
+        (org-export-coding-system ox-wk-coding-system))
     (org-export-to-file 'wk outfile
       async subtreep visible-only body-only ext-plist)))
 
