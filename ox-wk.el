@@ -44,7 +44,7 @@
 
 (defgroup org-export-wiki nil
   "Options specific to Wiki export back-end."
-  :tag "Org Wiki"
+  :tag "Org Export Wiki"
   :group 'org-export
   :version "24.3"
   :package-version '(Org . "8.3"))
@@ -52,7 +52,7 @@
 (defcustom ox-wk-style 'doku
   "Style used to format different elements to different wiki markups.
 This variable can be set to either `doku' or `creole' at the moment."
-  :group 'org-export-wk
+  :group 'org-export-wiki
   :type '(choice
           (const :tag "Use \"Dokuwiki\" style" doku)
           (const :tag "Use \"Wiki Creole\" style" creole)))
@@ -61,7 +61,7 @@ This variable can be set to either `doku' or `creole' at the moment."
   "Style used to format = and ~ markups in org file.
 I haven't figured out yet how to distinguish these but prefer to use monospace.
 This variable can be set to either `monospace' or `verbatim'."
-  :group 'org-export-wk
+  :group 'org-export-wiki
   :type '(choice
           (const :tag "Use \"Monospace\" markup" monospace)
           (const :tag "Use \"Verbatim\" markup" verbatim)))
@@ -69,7 +69,7 @@ This variable can be set to either `monospace' or `verbatim'."
 (defcustom ox-wk-coding-system 'utf-8
   "Coding system for wiki export.
 Use utf-8 as the default value."
-  :group 'org-export-wk
+  :group 'org-export-wiki
   :type 'coding-system)
 
 ;;; Define Back-End
