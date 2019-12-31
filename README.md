@@ -71,6 +71,20 @@ to distinguish these 2 so it is optional. Set it to 'monospace or 'verbatim.
     (setq ox-wk-org-verbatim 'monospace) ;; use monospace markup
     (setq ox-wk-org-verbatim 'verbatim) ;; use nowiki markup
 
+Set encoding for exported file, default value is `utf-8`
+
+    (setq ox-wk-coding-system 'utf-8-dos)
+
+All of above configurations can also be customized using the global org customize method
+
+`M-x org-customize`
+
+>[-]-\ [Group] Org  
+>   [-]-\ [Group] Org Export  
+>    | [-]-\ [Group] Org Export Wiki  
+>    |  |  |--- [Option] Ox Wk Style  
+>    |  |  |--- [Option] Ox Wk Org Verbatim  
+>    |  |  `--- [Option] Ox Wk Coding System  
 
 ## Development
 
